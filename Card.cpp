@@ -18,7 +18,7 @@ Card::Card(const std::string &suit, const std::string &rank, const int &value) {
     m_value = value;
 }
 
-std::string Card::getRank() {
+std::string Card::getRank() const{
     return m_rank;
 }
 int Card::getValue() const {
@@ -28,5 +28,5 @@ void Card::setValue(const int value) {
     m_value = value;
 }
 std::string Card::getCard() const {
-    return m_rank + "of" + m_suit;
+    return m_rank + " of " + m_suit;
 }

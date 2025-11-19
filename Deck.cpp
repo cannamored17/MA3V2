@@ -11,11 +11,14 @@
 Deck::Deck() {
     shuffleDeck();
 }
+
 void Deck::shuffleDeck() {
+    m_cardDeck.clear();
+
     std::string suits[]= {"Clubs","Diamonds", "Hearts", "Spades"};
-    std::string ranks[]= {"1", "2", "3", "4", "5", "6","7",
+    std::string ranks[]= { "2", "3", "4", "5", "6","7",
         "8", "9", "10", "Jack", "Queen", "King","Ace"};
-    int values[]= {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10,10,10,11};
+    int values[]= { 2, 3, 4, 5, 6, 7, 8, 9, 10, 10,10,10,11};
 
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 13; j++) {
