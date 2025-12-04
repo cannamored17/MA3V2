@@ -1,10 +1,8 @@
 //
 // Created by canna on 10/13/2025.
 //
-#include<string>
-
+#include <string>
 #include "Card.h"
-
 
 Card::Card() {
     m_rank = "";
@@ -18,15 +16,18 @@ Card::Card(const std::string &suit, const std::string &rank, const int &value) {
     m_value = value;
 }
 
-std::string Card::getRank() const{
+std::string Card::getRank() const {
     return m_rank;
 }
+
 int Card::getValue() const {
     return m_value;
 }
-void Card::setValue(const int value) {
+
+void Card::setValue(int value) {
     m_value = value;
 }
+
 std::string Card::getCard() const {
     return m_rank + " of " + m_suit;
 }

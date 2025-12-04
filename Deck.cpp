@@ -1,12 +1,10 @@
-
 #include <string>
 #include <random>
 #include <algorithm>
+#include <iostream>
+
 #include "Deck.h"
 #include "Card.h"
-#include <iostream>
-#include <ostream>
-
 
 Deck::Deck() {
     shuffleDeck();
@@ -15,33 +13,41 @@ Deck::Deck() {
 void Deck::shuffleDeck() {
     m_cardDeck.clear();
 
-    std::string suits[]= {"Clubs","Diamonds", "Hearts", "Spades"};
-    std::string ranks[]= { "2", "3", "4", "5", "6","7",
-        "8", "9", "10", "Jack", "Queen", "King","Ace"};
-    int values[]= { 2, 3, 4, 5, 6, 7, 8, 9, 10, 10,10,10,11};
+    static const std::string suits[4] = {"Clubs", "Diamonds", "Hearts", "Spades"};
+    static const std::string ranks[13] = {
+        "2","3","4","5","6","7","8","9","10",
+        "Jack","Queen","King","Ace"
+    };
 
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 13; j++) {
-            Card temp(suits[i],ranks[j],values[j]);
-            m_cardDeck.push_back(temp);
+    for (const std::string& suit : suits) {
+        for (int i = 0; i < 13; ++i) {
+            std::string rank = ranks[i];
+            int value;
 
+            if (i <= 7) {          // 2–9
+                value = i + 2;
+            } else if (i <= 10) {  // 10, J, Q, K
+                value = 10;
+            } else {               // Ace
+                value = 11;
+            }
+
+            m_cardDeck.emplace_back(suit, rank, value);
         }
-
     }
+
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::shuffle(m_cardDeck.begin(),m_cardDeck.end(),gen);
-    // Test Code
-    for (auto i: m_cardDeck) {
-        std::cout << i.getCard()<< std::endl;
-
-    }
+    std::shuffle(m_cardDeck.begin(), m_cardDeck.end(), gen);
 }
+
 Card Deck::dealCard() {
-    Card temp= m_cardDeck.back();
+    Card temp = m_cardDeck.back();
     m_cardDeck.pop_back();
     return temp;
 }
+
 int Deck::getCount() const {
-    return m_cardDeck.size();
+    return static_cast<int>(m_cardDeck.size());
 }
+

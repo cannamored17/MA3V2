@@ -9,4 +9,6 @@ add_executable(MA3V2 main.cpp
         Deck.cpp
         Deck.h
         Hand.cpp
-        Hand.h)
+        Hand.h
+        Game.cpp
+        Game.h)

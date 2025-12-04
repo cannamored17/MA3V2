@@ -16,10 +16,10 @@ void Hand::operator+=(const Card& card) {
 }
 
 std::string Hand::displayCard(int index) const {
-    if (index >= 0 && index < m_hand.size()) {
-        return m_hand[index].getCard();
+    if (index < 0 || index >= static_cast<int>(m_hand.size())) {
+        return "";
     }
-    return "-";
+    return m_hand[index].getCard();
 }
 
 int Hand::getPoints() const {
@@ -27,22 +27,24 @@ int Hand::getPoints() const {
     int aceCount = 0;
 
     for (const Card& card : m_hand) {
-        total += card.getValue();
+        int value = card.getValue();
+        total += value;
         if (card.getRank() == "Ace") {
-            aceCount++;
+            ++aceCount;
         }
     }
 
+    // Turn some Aces from 11 to 1 if we’re over 21
     while (total > 21 && aceCount > 0) {
-        total -= 10;
-        aceCount--;
+        total -= 10;   // 11 → 1
+        --aceCount;
     }
 
     return total;
 }
 
 int Hand::cardCount() const {
-    return m_hand.size();
+    return static_cast<int>(m_hand.size());
 }
 
 void Hand::displayAllCards() const {
